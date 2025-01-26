@@ -1,0 +1,56 @@
+[
+  {
+    "name": "HorizonSync",
+    "subTitle": "Seamlessly Connecting Ideas and Innovations Across Boundaries.",
+    "id": 1,
+    "ownerId": 1
+  },
+  {
+    "name": "QuantumLeap",
+    "subTitle": "Propelling the Future with Breakthrough Technologies.",
+    "id": 2,
+    "ownerId": 1
+  },
+  {
+    "name": "CodeForge",
+    "subTitle": "Where Innovation Meets Code Craftsmanship.",
+    "id": 3,
+    "ownerId": 2
+  },
+  {
+    "name": "CloudStrive",
+    "subTitle": "Scaling New Heights with Cloud Excellence.",
+    "id": 4,
+    "ownerId": 2
+  },
+  {
+    "name": "VisionPulse",
+    "subTitle": "Empowering Insights for a Clearer Tomorrow.",
+    "id": 5,
+    "ownerId": 3
+  },
+  {
+    "name": "NexusFlow",
+    "subTitle": "Streamlining Connections for a Smarter Ecosystem.",
+    "id": 6,
+    "ownerId": 3
+  },
+  {
+    "name": "InfinityMatrix",
+    "subTitle": "Infinite Possibilities in a Dynamic Framework.",
+    "id": 7,
+    "ownerId": 4
+  },
+  {
+    "name": "NovaCraft",
+    "subTitle": "Shaping the Stars of Tomorrow Through Creativity.",
+    "id": 8,
+    "ownerId": 4
+  },
+  {
+    "name": "TitanWave",
+    "subTitle": "Riding the Momentum of Bold Transformations.",
+    "id": 9,
+    "ownerId": 5
+  }
+]

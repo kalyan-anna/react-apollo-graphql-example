@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "email": "johndoe@example.com",
+    "password": "Summertime2025",
+    "name": "John Doe"
+  },
+  {
+    "id": 2,
+    "email": "johnsmith@example.com",
+    "password": "Summertime2025",
+    "name": "John Smith"
+  },
+  {
+    "id": 3,
+    "email": "michael.smith@example.com",
+    "password": "Summertime2025",
+    "name": "Michael Smith"
+  },
+  {
+    "id": 4,
+    "email": "susan.jones@example.com",
+    "password": "Summertime2025",
+    "name": "Susan Jones"
+  },
+  {
+    "id": 5,
+    "email": "david.brown@example.com",
+    "password": "Summertime2025",
+    "name": "David Brown"
+  },
+  {
+    "id": 6,
+    "email": "emily.white@example.com",
+    "password": "Summertime2025",
+    "name": "Emily White"
+  },
+  {
+    "id": 7,
+    "email": "christopher.wilson@example.com",
+    "password": "Summertime2025",
+    "name": "Christopher Wilson"
+  }
+]

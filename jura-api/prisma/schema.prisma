@@ -1,0 +1,76 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// generator nestgraphql {
+//   provider        = "node node_modules/prisma-nestjs-graphql"
+//   output          = "../src/@generated"
+//   emitBlocks      = ["models"]
+//   omitModelsCount = true
+// }
+
+model User {
+  id             Int            @id @default(autoincrement())
+  email          String         @unique
+  password       String
+  name           String
+  Project        Project[]
+  AssignedIssues Issue[]        @relation("AssigneeRelation")
+  ReportedIssues Issue[]        @relation("ReporterRelation")
+  Notification   Notification[]
+}
+
+model Project {
+  id          Int       @id @default(autoincrement())
+  name        String
+  subTitle    String
+  Sprints     Sprint[]
+  ownerId     Int
+  Owner       User      @relation(fields: [ownerId], references: [id])
+  dateCreated DateTime  @default(now())
+  dateUpdated DateTime? @updatedAt
+  Issues      Issue[]
+}
+
+model Sprint {
+  id        Int       @id @default(autoincrement())
+  projectId Int
+  name      String
+  goal      String
+  status    String
+  startDate DateTime?
+  endDate   DateTime?
+  Project   Project   @relation(fields: [projectId], references: [id])
+  Issues    Issue[]
+}
+
+model Issue {
+  id             Int     @id @default(autoincrement())
+  issueNumber    String  @unique
+  summary        String
+  description    String?
+  type           String
+  storyPoints    Int?
+  status         String
+  projectId      Int
+  Project        Project @relation(fields: [projectId], references: [id])
+  sprintId       Int?
+  Sprint         Sprint? @relation(fields: [sprintId], references: [id])
+  assigneeUserId Int?
+  Assignee       User?   @relation(name: "AssigneeRelation", fields: [assigneeUserId], references: [id])
+  reporterUserId Int
+  Reporter       User    @relation(name: "ReporterRelation", fields: [reporterUserId], references: [id])
+}
+
+model Notification {
+  id      Int    @id @default(autoincrement())
+  message String
+  userId  Int
+  User    User   @relation(fields: [userId], references: [id])
+  status  String
+}

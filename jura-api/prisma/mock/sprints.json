@@ -1,0 +1,326 @@
+[
+  {
+    "id": 1,
+    "name": "Hori-FY2025-1",
+    "projectId": 1,
+    "goal": "Complete initial phase of HorizonSync.",
+    "startDate": "2024-12-16T00:00:00.000Z",
+    "endDate": "2024-12-30T00:00:00.000Z",
+    "status": "COMPLETED"
+  },
+  {
+    "id": 2,
+    "name": "Hori-FY2025-2",
+    "projectId": 1,
+    "goal": "Progress on phase 2 of HorizonSync.",
+    "startDate": "2025-01-13T00:00:00.000Z",
+    "endDate": "2025-01-27T00:00:00.000Z",
+    "status": "ACTIVE"
+  },
+  {
+    "id": 3,
+    "name": "Hori-FY2025-3",
+    "projectId": 1,
+    "goal": "Progress on phase 3 of HorizonSync.",
+    "startDate": "2025-01-27T00:00:00.000Z",
+    "endDate": "2025-02-10T00:00:00.000Z",
+    "status": "PLANNED"
+  },
+  {
+    "id": 4,
+    "name": "Hori-FY2025-4",
+    "projectId": 1,
+    "goal": "Progress on phase 4 of HorizonSync.",
+    "startDate": "2025-02-10T00:00:00.000Z",
+    "endDate": "2025-02-24T00:00:00.000Z",
+    "status": "PLANNED"
+  },
+  {
+    "id": 5,
+    "name": "Quan-FY2025-1",
+    "projectId": 2,
+    "goal": "Complete initial phase of QuantumLeap.",
+    "startDate": "2024-12-16T00:00:00.000Z",
+    "endDate": "2024-12-30T00:00:00.000Z",
+    "status": "COMPLETED"
+  },
+  {
+    "id": 6,
+    "name": "Quan-FY2025-2",
+    "projectId": 2,
+    "goal": "Progress on phase 2 of QuantumLeap.",
+    "startDate": "2025-01-13T00:00:00.000Z",
+    "endDate": "2025-01-27T00:00:00.000Z",
+    "status": "ACTIVE"
+  },
+  {
+    "id": 7,
+    "name": "Quan-FY2025-3",
+    "projectId": 2,
+    "goal": "Progress on phase 3 of QuantumLeap.",
+    "startDate": "2025-01-27T00:00:00.000Z",
+    "endDate": "2025-02-10T00:00:00.000Z",
+    "status": "PLANNED"
+  },
+  {
+    "id": 8,
+    "name": "Quan-FY2025-4",
+    "projectId": 2,
+    "goal": "Progress on phase 4 of QuantumLeap.",
+    "startDate": "2025-02-10T00:00:00.000Z",
+    "endDate": "2025-02-24T00:00:00.000Z",
+    "status": "PLANNED"
+  },
+  {
+    "id": 9,
+    "name": "Code-FY2025-1",
+    "projectId": 3,
+    "goal": "Complete initial phase of CodeForge.",
+    "startDate": "2024-12-16T00:00:00.000Z",
+    "endDate": "2024-12-30T00:00:00.000Z",
+    "status": "COMPLETED"
+  },
+  {
+    "id": 10,
+    "name": "Code-FY2025-2",
+    "projectId": 3,
+    "goal": "Progress on phase 2 of CodeForge.",
+    "startDate": "2025-01-13T00:00:00.000Z",
+    "endDate": "2025-01-27T00:00:00.000Z",
+    "status": "ACTIVE"
+  },
+  {
+    "id": 11,
+    "name": "Code-FY2025-3",
+    "projectId": 3,
+    "goal": "Progress on phase 3 of CodeForge.",
+    "startDate": "2025-01-27T00:00:00.000Z",
+    "endDate": "2025-02-10T00:00:00.000Z",
+    "status": "PLANNED"
+  },
+  {
+    "id": 12,
+    "name": "Code-FY2025-4",
+    "projectId": 3,
+    "goal": "Progress on phase 4 of CodeForge.",
+    "startDate": "2025-02-10T00:00:00.000Z",
+    "endDate": "2025-02-24T00:00:00.000Z",
+    "status": "PLANNED"
+  },
+  {
+    "id": 13,
+    "name": "Cloud-FY2025-1",
+    "projectId": 4,
+    "goal": "Complete initial phase of CloudStrive.",
+    "startDate": "2024-12-16T00:00:00.000Z",
+    "endDate": "2024-12-30T00:00:00.000Z",
+    "status": "COMPLETED"
+  },
+  {
+    "id": 14,
+    "name": "Cloud-FY2025-2",
+    "projectId": 4,
+    "goal": "Progress on phase 2 of CloudStrive.",
+    "startDate": "2025-01-13T00:00:00.000Z",
+    "endDate": "2025-01-27T00:00:00.000Z",
+    "status": "ACTIVE"
+  },
+  {
+    "id": 15,
+    "name": "Cloud-FY2025-3",
+    "projectId": 4,
+    "goal": "Progress on phase 3 of CloudStrive.",
+    "startDate": "2025-01-27T00:00:00.000Z",
+    "endDate": "2025-02-10T00:00:00.000Z",
+    "status": "PLANNED"
+  },
+  {
+    "id": 16,
+    "name": "Cloud-FY2025-4",
+    "projectId": 4,
+    "goal": "Progress on phase 4 of CloudStrive.",
+    "startDate": "2025-02-10T00:00:00.000Z",
+    "endDate": "2025-02-24T00:00:00.000Z",
+    "status": "PLANNED"
+  },
+  {
+    "id": 17,
+    "name": "Vision-FY2025-1",
+    "projectId": 5,
+    "goal": "Complete initial phase of VisionPulse.",
+    "startDate": "2024-12-16T00:00:00.000Z",
+    "endDate": "2024-12-30T00:00:00.000Z",
+    "status": "COMPLETED"
+  },
+  {
+    "id": 18,
+    "name": "Vision-FY2025-2",
+    "projectId": 5,
+    "goal": "Progress on phase 2 of VisionPulse.",
+    "startDate": "2025-01-13T00:00:00.000Z",
+    "endDate": "2025-01-27T00:00:00.000Z",
+    "status": "ACTIVE"
+  },
+  {
+    "id": 19,
+    "name": "Vision-FY2025-3",
+    "projectId": 5,
+    "goal": "Progress on phase 3 of VisionPulse.",
+    "startDate": "2025-01-27T00:00:00.000Z",
+    "endDate": "2025-02-10T00:00:00.000Z",
+    "status": "PLANNED"
+  },
+  {
+    "id": 20,
+    "name": "Vision-FY2025-4",
+    "projectId": 5,
+    "goal": "Progress on phase 4 of VisionPulse.",
+    "startDate": "2025-02-10T00:00:00.000Z",
+    "endDate": "2025-02-24T00:00:00.000Z",
+    "status": "PLANNED"
+  },
+  {
+    "id": 21,
+    "name": "Nexus-FY2025-1",
+    "projectId": 6,
+    "goal": "Complete initial phase of NexusFlow.",
+    "startDate": "2024-12-16T00:00:00.000Z",
+    "endDate": "2024-12-30T00:00:00.000Z",
+    "status": "COMPLETED"
+  },
+  {
+    "id": 22,
+    "name": "Nexus-FY2025-2",
+    "projectId": 6,
+    "goal": "Progress on phase 2 of NexusFlow.",
+    "startDate": "2025-01-13T00:00:00.000Z",
+    "endDate": "2025-01-27T00:00:00.000Z",
+    "status": "ACTIVE"
+  },
+  {
+    "id": 23,
+    "name": "Nexus-FY2025-3",
+    "projectId": 6,
+    "goal": "Progress on phase 3 of NexusFlow.",
+    "startDate": "2025-01-27T00:00:00.000Z",
+    "endDate": "2025-02-10T00:00:00.000Z",
+    "status": "PLANNED"
+  },
+  {
+    "id": 24,
+    "name": "Nexus-FY2025-4",
+    "projectId": 6,
+    "goal": "Progress on phase 4 of NexusFlow.",
+    "startDate": "2025-02-10T00:00:00.000Z",
+    "endDate": "2025-02-24T00:00:00.000Z",
+    "status": "PLANNED"
+  },
+  {
+    "id": 25,
+    "name": "Infi-FY2025-1",
+    "projectId": 7,
+    "goal": "Complete initial phase of InfinityMatrix.",
+    "startDate": "2024-12-16T00:00:00.000Z",
+    "endDate": "2024-12-30T00:00:00.000Z",
+    "status": "COMPLETED"
+  },
+  {
+    "id": 26,
+    "name": "Infi-FY2025-2",
+    "projectId": 7,
+    "goal": "Progress on phase 2 of InfinityMatrix.",
+    "startDate": "2025-01-13T00:00:00.000Z",
+    "endDate": "2025-01-27T00:00:00.000Z",
+    "status": "ACTIVE"
+  },
+  {
+    "id": 27,
+    "name": "Infi-FY2025-3",
+    "projectId": 7,
+    "goal": "Progress on phase 3 of InfinityMatrix.",
+    "startDate": "2025-01-27T00:00:00.000Z",
+    "endDate": "2025-02-10T00:00:00.000Z",
+    "status": "PLANNED"
+  },
+  {
+    "id": 28,
+    "name": "Infi-FY2025-4",
+    "projectId": 7,
+    "goal": "Progress on phase 4 of InfinityMatrix.",
+    "startDate": "2025-02-10T00:00:00.000Z",
+    "endDate": "2025-02-24T00:00:00.000Z",
+    "status": "PLANNED"
+  },
+  {
+    "id": 29,
+    "name": "Nova-FY2025-1",
+    "projectId": 8,
+    "goal": "Complete initial phase of NovaCraft.",
+    "startDate": "2024-12-16T00:00:00.000Z",
+    "endDate": "2024-12-30T00:00:00.000Z",
+    "status": "COMPLETED"
+  },
+  {
+    "id": 30,
+    "name": "Nova-FY2025-2",
+    "projectId": 8,
+    "goal": "Progress on phase 2 of NovaCraft.",
+    "startDate": "2025-01-13T00:00:00.000Z",
+    "endDate": "2025-01-27T00:00:00.000Z",
+    "status": "ACTIVE"
+  },
+  {
+    "id": 31,
+    "name": "Nova-FY2025-3",
+    "projectId": 8,
+    "goal": "Progress on phase 3 of NovaCraft.",
+    "startDate": "2025-01-27T00:00:00.000Z",
+    "endDate": "2025-02-10T00:00:00.000Z",
+    "status": "PLANNED"
+  },
+  {
+    "id": 32,
+    "name": "Nova-FY2025-4",
+    "projectId": 8,
+    "goal": "Progress on phase 4 of NovaCraft.",
+    "startDate": "2025-02-10T00:00:00.000Z",
+    "endDate": "2025-02-24T00:00:00.000Z",
+    "status": "PLANNED"
+  },
+  {
+    "id": 33,
+    "name": "Titan-FY2025-1",
+    "projectId": 9,
+    "goal": "Complete initial phase of TitanWave.",
+    "startDate": "2024-12-16T00:00:00.000Z",
+    "endDate": "2024-12-30T00:00:00.000Z",
+    "status": "COMPLETED"
+  },
+  {
+    "id": 34,
+    "name": "Titan-FY2025-2",
+    "projectId": 9,
+    "goal": "Progress on phase 2 of TitanWave.",
+    "startDate": "2025-01-13T00:00:00.000Z",
+    "endDate": "2025-01-27T00:00:00.000Z",
+    "status": "ACTIVE"
+  },
+  {
+    "id": 35,
+    "name": "Titan-FY2025-3",
+    "projectId": 9,
+    "goal": "Progress on phase 3 of TitanWave.",
+    "startDate": "2025-01-27T00:00:00.000Z",
+    "endDate": "2025-02-10T00:00:00.000Z",
+    "status": "PLANNED"
+  },
+  {
+    "id": 36,
+    "name": "Titan-FY2025-4",
+    "projectId": 9,
+    "goal": "Progress on phase 4 of TitanWave.",
+    "startDate": "2025-02-10T00:00:00.000Z",
+    "endDate": "2025-02-24T00:00:00.000Z",
+    "status": "PLANNED"
+  }
+]
