@@ -52,4 +52,17 @@ export class UserService {
       },
     });
   }
+
+  async updateUser({
+    where,
+    data,
+  }: {
+    where: Prisma.UserWhereUniqueInput;
+    data: Prisma.UserUncheckedUpdateInput;
+  }): Promise<User> {
+    return this.prisma.user.update({
+      where,
+      data,
+    });
+  }
 }

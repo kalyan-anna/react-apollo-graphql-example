@@ -30,7 +30,9 @@ const documents = {
     "\n    mutation CreateSprint($input: SprintCreateInput!) {\n        createSprint(sprintCreateInput: $input) {\n            ...SprintFragment\n        }\n    }\n": types.CreateSprintDocument,
     "\n    mutation UpdateSprint($input: SprintUpdateInput!) {\n        updateSprint(sprintUpdateInput: $input) {\n            ...SprintFragment\n        }\n    }\n": types.UpdateSprintDocument,
     "\n    query SPRINTS($projectId: String!) {\n        sprints(projectId: $projectId) {\n            ...SprintFragment\n            issues {\n                ...IssueFragment\n            }\n        }\n    }\n": types.SprintsDocument,
+    "\n    mutation UpdateUser($input: UserUpdateInput!) {\n        updateUser(userUpdateInput: $input) {\n            ...UserFragment\n        }\n    }\n": types.UpdateUserDocument,
     "\n    query USERS {\n        users {\n            ...UserFragment\n        }\n    }\n": types.UsersDocument,
+    "\n    query USER($id: String!) {\n        user(id: $id) {\n            ...UserFragment\n        }\n    }\n": types.UserDocument,
 };
 
 /**
@@ -114,7 +116,15 @@ export function gql(source: "\n    query SPRINTS($projectId: String!) {\n       
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function gql(source: "\n    mutation UpdateUser($input: UserUpdateInput!) {\n        updateUser(userUpdateInput: $input) {\n            ...UserFragment\n        }\n    }\n"): (typeof documents)["\n    mutation UpdateUser($input: UserUpdateInput!) {\n        updateUser(userUpdateInput: $input) {\n            ...UserFragment\n        }\n    }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function gql(source: "\n    query USERS {\n        users {\n            ...UserFragment\n        }\n    }\n"): (typeof documents)["\n    query USERS {\n        users {\n            ...UserFragment\n        }\n    }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n    query USER($id: String!) {\n        user(id: $id) {\n            ...UserFragment\n        }\n    }\n"): (typeof documents)["\n    query USER($id: String!) {\n        user(id: $id) {\n            ...UserFragment\n        }\n    }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

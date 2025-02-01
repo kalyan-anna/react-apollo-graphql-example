@@ -14,12 +14,11 @@ import { SortableContext, rectSortingStrategy, sortableKeyboardCoordinates } fro
 import { Breadcrumbs, Button, Typography } from "@material-tailwind/react";
 import { useActiveSprintIssuesQuery, useActiveSprintQuery } from "../state/sprint";
 
-import { useApolloClient } from "@apollo/client";
 import { useDroppable } from "@dnd-kit/core";
 import { IssueStatus } from "@generated/graphql";
 import { FC } from "react";
 import { Link, useNavigate, useParams } from "react-router";
-import { useUpdateIssueMutation } from "../state/issue";
+import { useUpdateIssueCache, useUpdateIssueMutation } from "../state/issue";
 import { useProjectQuery } from "../state/project";
 import { useCompleteSprintMutation } from "../state/sprint/mutations";
 import { issueDialog, sprintCompleteWarningDialog } from "../state/ui-dialog";
@@ -72,8 +71,8 @@ const ColumnDroppable: FC<ColumnDroppableProps> = ({ id, title, projectId }) => 
 export function KanbanBoard() {
   const { projectId = "" } = useParams();
   const { data } = useActiveSprintQuery({ projectId: projectId ?? "" });
-  const client = useApolloClient();
   const [updateIssue] = useUpdateIssueMutation();
+  const { updateIssueCache } = useUpdateIssueCache();
   const { openDialog: openWarningDialog } = sprintCompleteWarningDialog.useDialogState();
   const [completeSprint, { loading }] = useCompleteSprintMutation();
   const navigate = useNavigate();
@@ -113,15 +112,7 @@ export function KanbanBoard() {
     if (!matchingIssue) {
       return;
     }
-    client.cache.modify({
-      id: client.cache.identify(matchingIssue),
-      fields: {
-        status() {
-          return overColumnId;
-        },
-      },
-      broadcast: true,
-    });
+    updateIssueCache(matchingIssue, overColumnId);
   };
 
   const handleDragOver = (event: DragOverEvent) => {

@@ -1,4 +1,4 @@
-import { BellIcon, ChevronDownIcon, PowerIcon } from "@heroicons/react/24/solid";
+import { BellIcon, ChevronDownIcon, PowerIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import {
   Avatar,
   Badge,
@@ -15,8 +15,8 @@ import { Link, useNavigate } from "react-router";
 
 import React from "react";
 import { NotificationPopover } from "../components/NotificationPopover";
-import { useAuthState } from "../state/auth";
-import { useNotificationsCountQuery, useNotificationsQuery } from "../state/notification";
+import { useNotificationsCountQuery } from "../state/notification";
+import { useCurrentUserQuery } from "../state/user";
 
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -25,6 +25,11 @@ function ProfileMenu() {
   const handleLogoutMenuClick = () => {
     setIsMenuOpen(false);
     navigate("/login");
+  };
+
+  const handleProfileMenuClick = () => {
+    setIsMenuOpen(false);
+    navigate("/profile");
   };
 
   return (
@@ -49,6 +54,15 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
+        <MenuItem onClick={handleProfileMenuClick} className={"flex items-center gap-2 rounded"}>
+          {React.createElement(UserCircleIcon, {
+            className: `h-4 w-4 text-black`,
+            strokeWidth: 2,
+          })}
+          <Typography as="span" variant="small" className="font-normal" color={"black"}>
+            Profile
+          </Typography>
+        </MenuItem>
         <MenuItem onClick={handleLogoutMenuClick} className={"flex items-center gap-2 rounded"}>
           {React.createElement(PowerIcon, {
             className: `h-4 w-4 text-black`,
@@ -80,7 +94,7 @@ interface MainNavProps {
 }
 
 export const MainNav = ({ withProfileMenu = true }: MainNavProps) => {
-  const { currentUser } = useAuthState();
+  const { data, loading } = useCurrentUserQuery();
   const { length } = useNotificationsCountQuery();
 
   return (
@@ -101,9 +115,11 @@ export const MainNav = ({ withProfileMenu = true }: MainNavProps) => {
               </NotificationPopover>
             </WithBadge>
             <div className="flex gap-4 justify-center items-center">
-              <Typography color="blue-gray" variant="lead">
-                {currentUser?.name}
-              </Typography>
+              {!loading && (
+                <Typography color="blue-gray" variant="lead">
+                  {data?.user?.name}
+                </Typography>
+              )}
               <ProfileMenu />
             </div>
           </div>

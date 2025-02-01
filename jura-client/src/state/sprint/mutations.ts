@@ -50,10 +50,6 @@ export const useCreateSprintMutation = (): [
   return [createSprintCb, result];
 };
 
-export const useUpdateSprintMutation = () => {
-  return useMutation(UPDATE_SPRINT_MUTATION);
-};
-
 type MutationOptions = Omit<MutationFunctionOptions<UpdateSprintMutation, UpdateSprintMutationVariables>, "variables">;
 
 export const useCompleteSprintMutation = (): [

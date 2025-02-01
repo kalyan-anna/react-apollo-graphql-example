@@ -4,6 +4,7 @@ import { useMutation } from "@apollo/client";
 import { gql } from "@generated/gql";
 import { useNavigate } from "react-router";
 import { useUIPreferenceState } from "../ui-preference";
+import { useUpdateUserCache } from "../user/mutations";
 
 const LOGIN_MUTATION = gql(`
   mutation Login($email: String!, $password: String!) {
@@ -20,9 +21,11 @@ export const useLoginMutation = () => {
   const navigate = useNavigate();
   const { login, logout } = useAuthState();
   const { lastVisitedProjectId } = useUIPreferenceState();
+  const { updateUserCache } = useUpdateUserCache();
 
   return useMutation(LOGIN_MUTATION, {
     onCompleted: (data) => {
+      updateUserCache(data.login.user);
       login({ accessToken: data.login.accessToken, user: data.login.user });
       if (lastVisitedProjectId) {
         navigate(`/project/${lastVisitedProjectId}/issues`);

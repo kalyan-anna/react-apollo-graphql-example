@@ -13,11 +13,11 @@ const PROJECTS_QUERY = gql(`
 
 export const useProjectsQuery = () => {
   const result = useQuery(PROJECTS_QUERY);
-  const { currentUser } = useAuthState();
+  const { currentUserId } = useAuthState();
 
-  const ownedProjects = result?.data?.projects.filter((project) => project.ownerId === currentUser?.id) || [];
+  const ownedProjects = result?.data?.projects.filter((project) => project.ownerId === currentUserId) || [];
 
-  const otherProjects = result?.data?.projects.filter((project) => project.ownerId !== currentUser?.id) || [];
+  const otherProjects = result?.data?.projects.filter((project) => project.ownerId !== currentUserId) || [];
 
   return {
     ...result,

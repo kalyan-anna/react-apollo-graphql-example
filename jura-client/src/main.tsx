@@ -15,6 +15,7 @@ import { StrictMode } from "react";
 import { ThemeProvider } from "@material-tailwind/react";
 import { client } from "./utils/client.helper.ts";
 import { createRoot } from "react-dom/client";
+import { ProfilePage } from "./pages/ProfilePage.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -26,6 +27,7 @@ createRoot(document.getElementById("root")!).render(
               <Route path="/" element={<IndexPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
               <Route path="/project/:projectId" element={<ProjectPage />}>
                 <Route index element={<Navigate to="issues" replace />} />
                 <Route path="issues" element={<IssuesPage />} />

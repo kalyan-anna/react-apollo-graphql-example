@@ -1,10 +1,11 @@
-import { MutationResult, Reference, useMutation } from "@apollo/client";
+import { MutationResult, Reference, useApolloClient, useMutation } from "@apollo/client";
 import { gql } from "@generated/gql";
 import {
   CreateIssueMutation,
   DeleteIssueMutation,
   Issue,
   IssueCreateInput,
+  IssueStatus,
   IssueUpdateInput,
   UpdateIssueMutation,
 } from "@generated/graphql";
@@ -182,4 +183,22 @@ export const useDeleteIssueMutation = (): [(data?: Issue) => void, MutationResul
   };
 
   return [deleteIssueCb, result];
+};
+
+export const useUpdateIssueCache = () => {
+  const client = useApolloClient();
+
+  const updateIssueCache = (issue: Issue, status: IssueStatus) => {
+    client.cache.modify({
+      id: client.cache.identify(issue),
+      fields: {
+        status() {
+          return status;
+        },
+      },
+      broadcast: true,
+    });
+  };
+
+  return { updateIssueCache };
 };
