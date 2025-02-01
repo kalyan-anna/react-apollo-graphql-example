@@ -71,7 +71,7 @@ const ColumnDroppable: FC<ColumnDroppableProps> = ({ id, title, projectId }) => 
 export function KanbanBoard() {
   const { projectId = "" } = useParams();
   const { data } = useActiveSprintQuery({ projectId: projectId ?? "" });
-  const [updateIssue] = useUpdateIssueMutation();
+  const [updateIssue] = useUpdateIssueMutation({ showNotificationOnUpdate: false });
   const { updateIssueCache } = useUpdateIssueCache();
   const { openDialog: openWarningDialog } = sprintCompleteWarningDialog.useDialogState();
   const [completeSprint, { loading }] = useCompleteSprintMutation();

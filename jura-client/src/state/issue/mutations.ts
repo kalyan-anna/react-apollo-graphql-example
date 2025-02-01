@@ -38,10 +38,11 @@ const DELETE_ISSUE_MUTATION = gql(`
   }
 `);
 
-export const useUpdateIssueMutation = (): [
-  (data: IssueUpdateInput, oldIssue?: Issue) => void,
-  MutationResult<UpdateIssueMutation>
-] => {
+export const useUpdateIssueMutation = ({
+  showNotificationOnUpdate = true,
+}: {
+  showNotificationOnUpdate?: boolean;
+} = {}): [(data: IssueUpdateInput, oldIssue?: Issue) => void, MutationResult<UpdateIssueMutation>] => {
   const [updateIssue, result] = useMutation(UPDATE_ISSUE_MUTATION);
   const { closeDialog } = issueDialog.useDialogState();
   const { projectId = "" } = useParams();
@@ -56,7 +57,9 @@ export const useUpdateIssueMutation = (): [
       },
       onCompleted: () => {
         closeDialog();
-        addToast(`${oldIssue?.issueNumber} has been updated.`);
+        if (showNotificationOnUpdate) {
+          addToast(`${oldIssue?.issueNumber} has been updated.`);
+        }
       },
       refetchQueries: () => {
         return oldIssue?.sprintId !== data?.sprintId
