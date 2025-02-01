@@ -1,6 +1,6 @@
 # JURA - Kanban Project Tool
 
-This is a real-world example of using Apollo GraphQL for state management along with Jotai.
+This is an example project of using Apollo GraphQL for state management along with Jotai.
 
 ## Setup Instructions
 
