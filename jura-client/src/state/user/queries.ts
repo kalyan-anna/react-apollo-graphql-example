@@ -1,6 +1,7 @@
 import { gql } from "@generated/gql";
 import { useQuery } from "@apollo/client";
 import { useAuthState } from "../auth";
+import { useMemo } from "react";
 
 const USERS_QUERY = gql(`
     query USERS {
@@ -30,13 +31,15 @@ export const useCurrentUserQuery = () => {
     },
   });
 
-  const firstName = result.data?.user?.name.split(" ")[0];
+  return useMemo(() => {
+    const firstName = result.data?.user?.name.split(" ")[0];
 
-  return {
-    ...result,
-    data: {
-      ...result.data,
-      firstName,
-    },
-  };
+    return {
+      ...result,
+      data: {
+        ...result.data,
+        firstName,
+      },
+    };
+  }, [result]);
 };
