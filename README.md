@@ -19,3 +19,6 @@ nvm use
 npm install
 npm run dev
 ```
+
+## Devtools
+https://chromewebstore.google.com/detail/apollo-client-devtools/jdkknkkbebbapilgoeccciglkfbmbnfm
