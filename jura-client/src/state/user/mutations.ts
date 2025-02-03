@@ -32,23 +32,3 @@ export const useUpdateUserMutation = (): [
 
   return [updateUserFn, result];
 };
-
-export const useUpdateUserCache = () => {
-  const client = useApolloClient();
-
-  const updateUserCache = (user: User) => {
-    client.writeQuery({
-      query: USER_QUERY,
-      data: {
-        user: {
-          ...user,
-        },
-      },
-      variables: {
-        id: user.id,
-      },
-    });
-  };
-
-  return { updateUserCache };
-};

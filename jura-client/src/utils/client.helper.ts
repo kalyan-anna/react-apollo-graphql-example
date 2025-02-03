@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
+import { ApolloClient, InMemoryCache, TypePolicy, createHttpLink } from "@apollo/client";
 
 import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
@@ -50,9 +50,34 @@ const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) 
 
 const retryLink = new RetryLink({ attempts: { max: 2 } });
 
+const entityTypes = ["Sprint", "Issue", "User", "Notification", "Project"];
+
+const generateTypePolicies = () => {
+  const fields: TypePolicy["fields"] = {};
+
+  entityTypes.forEach((entityType) => {
+    fields[entityType.toLowerCase()] = {
+      read(_, { args, toReference }) {
+        return toReference({
+          __typename: entityType,
+          id: args?.id,
+        });
+      },
+    };
+  });
+
+  return fields;
+};
+
 export const client = new ApolloClient({
   link: retryLink.concat(authLink).concat(errorLink).concat(httpLink),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: generateTypePolicies(),
+      },
+    },
+  }),
   defaultOptions: {
     mutate: {
       awaitRefetchQueries: true,
