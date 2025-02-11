@@ -1,10 +1,10 @@
-import { Issue } from "@generated/graphql";
-import { issueDialog } from "../state/ui-dialog";
-import { ISSUE_TYPE_COLOR } from "../utils/constants";
-import { Typography } from "@material-tailwind/react";
-import Avatar from "react-avatar";
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
+import { Issue } from '@generated/graphql';
+import { issueDialog } from '../state/ui-dialog';
+import { ISSUE_TYPE_COLOR } from '../utils/constants';
+import { Typography } from '@material-tailwind/react';
+import Avatar from 'react-avatar';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 interface SprintIssueItemProps {
   issue: Issue;
@@ -51,7 +51,7 @@ export const SprintIssueSortableItem = ({ issue, classes }: SprintIssueItemProps
         </Typography>
       </td>
       <td className={`${classes}  w-1/8`}>
-        <Avatar name={assignee?.name ?? "Unassigned"} size="20" round={true} />
+        <Avatar name={assignee?.name ?? 'Unassigned'} size="20" round={true} />
       </td>
       <td className={`${classes}  w-1/8`}>
         <div>

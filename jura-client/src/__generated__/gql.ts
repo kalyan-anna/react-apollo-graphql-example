@@ -23,7 +23,8 @@ const documents = {
     "\n    mutation UpdateIssue($input: IssueUpdateInput!) {\n        updateIssue(issueUpdateInput: $input) {\n            ...IssueFragment\n        }\n    }\n": types.UpdateIssueDocument,
     "\n  mutation CreateIssue($input: IssueCreateInput!) {\n      createIssue(issueCreateInput: $input) {\n          ...IssueFragment\n      }\n  }\n": types.CreateIssueDocument,
     "\n  mutation DeleteIssue($id: String!) {\n      deleteIssue(id: $id)\n  }\n": types.DeleteIssueDocument,
-    "\n  query BACKLOG_ISSUES($projectId: String!) {\n      issues(projectId: $projectId, sprintId: null) {\n          ...IssueFragment\n      }\n    }\n  ": types.Backlog_IssuesDocument,
+    "\n    query BACKLOG_ISSUES($projectId: String!) {\n      issues(projectId: $projectId, sprintId: null) {\n          ...IssueFragment\n      }\n    }\n": types.Backlog_IssuesDocument,
+    "\n  query PROJECT_ISSUES_COUNT {\n    projectIssuesCount {\n      projectId\n      issuesCount\n    }\n  }\n": types.Project_Issues_CountDocument,
     "\n    mutation UpdateNotification($id: String!, $status: NotificationStatus!) {\n        updateNotification(id: $id, status: $status) {\n            ...NotificationFragment\n        }\n    }\n": types.UpdateNotificationDocument,
     "\n    query NOTIFICATIONS {\n        notifications {\n           ...NotificationFragment\n        }\n    }\n  ": types.NotificationsDocument,
     "\n    query PROJECTS {\n        projects {\n           ...ProjectFragment\n        }\n    }\n  ": types.ProjectsDocument,
@@ -88,7 +89,11 @@ export function gql(source: "\n  mutation DeleteIssue($id: String!) {\n      del
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query BACKLOG_ISSUES($projectId: String!) {\n      issues(projectId: $projectId, sprintId: null) {\n          ...IssueFragment\n      }\n    }\n  "): (typeof documents)["\n  query BACKLOG_ISSUES($projectId: String!) {\n      issues(projectId: $projectId, sprintId: null) {\n          ...IssueFragment\n      }\n    }\n  "];
+export function gql(source: "\n    query BACKLOG_ISSUES($projectId: String!) {\n      issues(projectId: $projectId, sprintId: null) {\n          ...IssueFragment\n      }\n    }\n"): (typeof documents)["\n    query BACKLOG_ISSUES($projectId: String!) {\n      issues(projectId: $projectId, sprintId: null) {\n          ...IssueFragment\n      }\n    }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query PROJECT_ISSUES_COUNT {\n    projectIssuesCount {\n      projectId\n      issuesCount\n    }\n  }\n"): (typeof documents)["\n  query PROJECT_ISSUES_COUNT {\n    projectIssuesCount {\n      projectId\n      issuesCount\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

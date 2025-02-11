@@ -1,20 +1,16 @@
-import {
-  Args,
-  Mutation,
-  Parent,
-  Query,
-  ResolveField,
-  Resolver,
-} from '@nestjs/graphql';
+import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { CurrentUser } from 'src/decorators/current-user.decorator';
 import { NotificationStatus } from 'src/models/enums';
 import { IssueCreateInput } from 'src/models/issue-create.input';
 import { IssueUpdateInput } from 'src/models/issue-update.input';
 import { Issue } from 'src/models/issue.model';
+import { ProjectIssuesCount } from 'src/models/project-issues-count.model';
 import { IssueService } from 'src/services/issue.service';
 import { NotificationService } from 'src/services/notification.service';
 import { ProjectService } from 'src/services/project.service';
 import { SprintService } from 'src/services/sprint.service';
 import { UserService } from 'src/services/user.service';
+import { User } from '@prisma/client';
 
 @Resolver(() => Issue)
 export class IssueResolver {
@@ -61,14 +57,7 @@ export class IssueResolver {
     @Args('issueUpdateInput')
     issueUpdateInput: IssueUpdateInput,
   ) {
-    const {
-      id,
-      sprintId,
-      assigneeUserId,
-      reporterUserId,
-      orderIndex,
-      ...dataToUpdate
-    } = issueUpdateInput;
+    const { id, sprintId, assigneeUserId, reporterUserId, orderIndex, ...dataToUpdate } = issueUpdateInput;
 
     const oldIssue = await this.issueService.issue({ id: Number(id) });
     if (assigneeUserId) {
@@ -88,10 +77,7 @@ export class IssueResolver {
     }
 
     let newOrderIndex = orderIndex ?? oldIssue.orderIndex;
-    if (
-      sprintId === null ||
-      (sprintId && oldIssue.sprintId !== Number(sprintId))
-    ) {
+    if (sprintId === null || (sprintId && oldIssue.sprintId !== Number(sprintId))) {
       const highestOrderIndex = await this.issueService.highestOrderIndex({
         ...(sprintId && { sprintId: Number(sprintId) }),
         projectId: oldIssue.projectId,
@@ -118,20 +104,12 @@ export class IssueResolver {
     @Args('issueCreateInput')
     issueCreateInput: IssueCreateInput,
   ) {
-    const {
-      sprintId,
-      projectId,
-      assigneeUserId,
-      reporterUserId,
-      ...dataToCreate
-    } = issueCreateInput;
+    const { sprintId, projectId, assigneeUserId, reporterUserId, ...dataToCreate } = issueCreateInput;
 
     const project = await this.projectService.project({
       id: Number(projectId),
     });
-    const highestIssueNumber = await this.issueService.highestIssueNumber(
-      Number(projectId),
-    );
+    const highestIssueNumber = await this.issueService.highestIssueNumber(Number(projectId));
     const issueNumber = `${project.name.slice(0, 2).toUpperCase()}${highestIssueNumber + 1}`;
 
     if (assigneeUserId) {
@@ -193,5 +171,13 @@ export class IssueResolver {
   ) {
     await this.issueService.deleteIssue({ where: { id: Number(id) } });
     return true;
+  }
+
+  @Query(() => [ProjectIssuesCount])
+  async projectIssuesCount(@CurrentUser() user: User): Promise<ProjectIssuesCount[]> {
+    const result = await this.issueService.projectIssuesCount({
+      userId: user.id,
+    });
+    return result.map((item) => ({ projectId: String(item.projectId), issuesCount: item._count.id }));
   }
 }

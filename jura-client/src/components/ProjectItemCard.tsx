@@ -1,6 +1,8 @@
-import { Card, CardBody, Typography } from "@material-tailwind/react";
+import { Card, CardBody, Typography } from '@material-tailwind/react';
 
-import { useNavigate } from "react-router";
+import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router';
+import { useIssuesCountByProjectId } from '../state/issue';
 
 interface ProjectItemCardProps {
   id: string;
@@ -8,12 +10,17 @@ interface ProjectItemCardProps {
   subTitle: string;
 }
 
-export const ProjectItemCard = ({
-  name,
-  subTitle,
-  id,
-}: ProjectItemCardProps) => {
+export const ProjectItemCard = ({ name, subTitle, id }: ProjectItemCardProps) => {
   const navigate = useNavigate();
+  const { data, refetch } = useIssuesCountByProjectId(id);
+  const hasRefetchedRef = useRef(data ? false : true);
+
+  useEffect(() => {
+    if (!hasRefetchedRef.current) {
+      refetch();
+      hasRefetchedRef.current = true;
+    }
+  }, [refetch]);
 
   const handleClick = () => {
     navigate(`/project/${id}`);
@@ -26,6 +33,21 @@ export const ProjectItemCard = ({
           {name}
         </Typography>
         <Typography>{subTitle}</Typography>
+
+        <div className="flex gap-1 mt-1 justify-end">
+          <Typography variant="small" className="italic">
+            Issue Count:
+          </Typography>
+          {data && (
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="font-normal bg-gray-500 w-6 text-center rounded-full"
+            >
+              {data ?? 0}
+            </Typography>
+          )}
+        </div>
       </CardBody>
     </Card>
   );

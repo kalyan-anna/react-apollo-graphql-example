@@ -7,9 +7,7 @@ import { PrismaService } from './prisma.service';
 export class IssueService {
   constructor(private prisma: PrismaService) {}
 
-  async issue(
-    issueWhereUniqueInput: Prisma.IssueWhereUniqueInput,
-  ): Promise<Issue | null> {
+  async issue(issueWhereUniqueInput: Prisma.IssueWhereUniqueInput): Promise<Issue | null> {
     return this.prisma.issue.findUnique({
       where: issueWhereUniqueInput,
     });
@@ -35,21 +33,13 @@ export class IssueService {
     });
   }
 
-  async createIssue({
-    data,
-  }: {
-    data: Prisma.IssueCreateInput;
-  }): Promise<Issue> {
+  async createIssue({ data }: { data: Prisma.IssueCreateInput }): Promise<Issue> {
     return this.prisma.issue.create({
       data,
     });
   }
 
-  async deleteIssue({
-    where,
-  }: {
-    where: Prisma.IssueWhereUniqueInput;
-  }): Promise<Issue> {
+  async deleteIssue({ where }: { where: Prisma.IssueWhereUniqueInput }): Promise<Issue> {
     return this.prisma.issue.delete({
       where,
     });
@@ -69,18 +59,10 @@ export class IssueService {
       take: 1,
     });
 
-    return highestIssue[0]
-      ? parseInt(highestIssue[0]?.issueNumber?.slice(2))
-      : 1000;
+    return highestIssue[0] ? parseInt(highestIssue[0]?.issueNumber?.slice(2)) : 1000;
   }
 
-  async highestOrderIndex({
-    projectId,
-    sprintId,
-  }: {
-    projectId?: number;
-    sprintId?: number;
-  }) {
+  async highestOrderIndex({ projectId, sprintId }: { projectId?: number; sprintId?: number }) {
     const data = await this.prisma.issue.findFirst({
       where: {
         sprintId,
@@ -90,5 +72,17 @@ export class IssueService {
       select: { orderIndex: true },
     });
     return data.orderIndex ?? 0;
+  }
+
+  async projectIssuesCount({ userId }: { userId: number }) {
+    return await this.prisma.issue.groupBy({
+      by: ['projectId'],
+      _count: {
+        id: true,
+      },
+      where: {
+        assigneeUserId: userId,
+      },
+    });
   }
 }

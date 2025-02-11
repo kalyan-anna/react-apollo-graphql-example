@@ -1,7 +1,18 @@
 import * as yup from 'yup';
 
 import { Issue, IssueStatus, IssueType } from '@generated/graphql';
-import { Button, Dialog, DialogBody, DialogHeader, IconButton, Input, Option, Select, Textarea, Typography } from '@material-tailwind/react';
+import {
+  Button,
+  Dialog,
+  DialogBody,
+  DialogHeader,
+  IconButton,
+  Input,
+  Option,
+  Select,
+  Textarea,
+  Typography
+} from '@material-tailwind/react';
 import { useCreateIssueMutation, useDeleteIssueMutation, useUpdateIssueMutation } from '../state/issue';
 import { useUnCompletedSprintsQuery } from '../state/sprint';
 
@@ -139,13 +150,24 @@ const UpsertIssueForm = ({ issue }: { issue?: Issue }) => {
         <Typography variant="h4" color="blue-gray">
           {issue?.id ? 'Update' : 'Create'} Issue
         </Typography>
-        <IconButton size="sm" variant="text" className="!absolute right-3.5 top-3.5" onClick={closeDialog} disabled={loading}>
+        <IconButton
+          size="sm"
+          variant="text"
+          className="!absolute right-3.5 top-3.5"
+          onClick={closeDialog}
+          disabled={loading}
+        >
           <XMarkIcon className="h-4 w-4 stroke-2" />
         </IconButton>
       </DialogHeader>
       <DialogBody className="space-y-8 pb-6">
         <div>
-          <Input label="Summary" error={!!errors.summary} {...register('summary')} containerProps={{ className: 'min-w-full' }} />
+          <Input
+            label="Summary"
+            error={!!errors.summary}
+            {...register('summary')}
+            containerProps={{ className: 'min-w-full' }}
+          />
           {errors?.summary && <p className="text-sm text-red-500 mt-2">{errors.summary?.message}</p>}
         </div>
 
@@ -230,7 +252,12 @@ const UpsertIssueForm = ({ issue }: { issue?: Issue }) => {
 
         <div className="flex gap-2">
           <div>
-            <Input label="Story points" error={!!errors.storyPoints} {...register('storyPoints')} containerProps={{ className: 'min-w-full' }} />
+            <Input
+              label="Story points"
+              error={!!errors.storyPoints}
+              {...register('storyPoints')}
+              containerProps={{ className: 'min-w-full' }}
+            />
             {errors?.storyPoints && <p className="text-sm text-red-500 mt-2">{errors.storyPoints?.message}</p>}
           </div>
           <div>
