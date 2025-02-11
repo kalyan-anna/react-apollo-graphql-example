@@ -18,6 +18,7 @@ export class IssueService {
   async issues(issueWhereInput: Prisma.IssueWhereInput): Promise<Issue[]> {
     return this.prisma.issue.findMany({
       where: issueWhereInput,
+      orderBy: { orderIndex: 'asc' },
     });
   }
 
@@ -71,5 +72,23 @@ export class IssueService {
     return highestIssue[0]
       ? parseInt(highestIssue[0]?.issueNumber?.slice(2))
       : 1000;
+  }
+
+  async highestOrderIndex({
+    projectId,
+    sprintId,
+  }: {
+    projectId?: number;
+    sprintId?: number;
+  }) {
+    const data = await this.prisma.issue.findFirst({
+      where: {
+        sprintId,
+        projectId,
+      },
+      orderBy: { orderIndex: 'desc' },
+      select: { orderIndex: true },
+    });
+    return data.orderIndex ?? 0;
   }
 }

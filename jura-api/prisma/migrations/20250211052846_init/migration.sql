@@ -37,6 +37,7 @@ CREATE TABLE "Issue" (
     "description" TEXT,
     "type" TEXT NOT NULL,
     "storyPoints" INTEGER,
+    "orderIndex" REAL,
     "status" TEXT NOT NULL,
     "projectId" INTEGER NOT NULL,
     "sprintId" INTEGER,

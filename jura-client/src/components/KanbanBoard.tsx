@@ -8,39 +8,39 @@ import {
   PointerSensor,
   closestCorners,
   useSensor,
-  useSensors,
-} from "@dnd-kit/core";
-import { SortableContext, rectSortingStrategy, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
-import { Breadcrumbs, Button, Typography } from "@material-tailwind/react";
-import { useActiveSprintIssuesQuery, useActiveSprintQuery } from "../state/sprint";
+  useSensors
+} from '@dnd-kit/core';
+import { SortableContext, rectSortingStrategy, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
+import { Breadcrumbs, Button, Typography } from '@material-tailwind/react';
+import { useActiveSprintIssuesByStatusQuery, useActiveSprintQuery } from '../state/sprint';
 
-import { useDroppable } from "@dnd-kit/core";
-import { IssueStatus } from "@generated/graphql";
-import { FC } from "react";
-import { Link, useNavigate, useParams } from "react-router";
-import { useUpdateIssueCache, useUpdateIssueMutation } from "../state/issue";
-import { useProjectQuery } from "../state/project";
-import { useCompleteSprintMutation } from "../state/sprint/mutations";
-import { issueDialog, sprintCompleteWarningDialog } from "../state/ui-dialog";
-import { IssueDraggable } from "./IssueDraggable";
+import { useDroppable } from '@dnd-kit/core';
+import { IssueStatus } from '@generated/graphql';
+import { FC } from 'react';
+import { Link, useNavigate, useParams } from 'react-router';
+import { useUpdateIssueCache, useUpdateIssueMutation } from '../state/issue';
+import { useProjectQuery } from '../state/project';
+import { useCompleteSprintMutation } from '../state/sprint/mutations';
+import { issueDialog, sprintCompleteWarningDialog } from '../state/ui-dialog';
+import { IssueDraggable } from './IssueDraggable';
 
 const COLUMNS = [
   {
     id: IssueStatus.ToDo,
-    title: "To Do",
+    title: 'To Do'
   },
   {
     id: IssueStatus.InProgress,
-    title: "In Progress",
+    title: 'In Progress'
   },
   {
     id: IssueStatus.Review,
-    title: "Review",
+    title: 'Review'
   },
   {
     id: IssueStatus.Done,
-    title: "Done",
-  },
+    title: 'Done'
+  }
 ];
 
 export type ColumnDroppableProps = {
@@ -50,9 +50,9 @@ export type ColumnDroppableProps = {
 };
 
 const ColumnDroppable: FC<ColumnDroppableProps> = ({ id, title, projectId }) => {
-  const { data: issues } = useActiveSprintIssuesQuery({
+  const { data: issues } = useActiveSprintIssuesByStatusQuery({
     projectId,
-    status: id,
+    status: id
   });
   const { setNodeRef } = useDroppable({ id: id });
 
@@ -69,8 +69,8 @@ const ColumnDroppable: FC<ColumnDroppableProps> = ({ id, title, projectId }) => 
 };
 
 export function KanbanBoard() {
-  const { projectId = "" } = useParams();
-  const { data } = useActiveSprintQuery({ projectId: projectId ?? "" });
+  const { projectId = '' } = useParams();
+  const { data } = useActiveSprintQuery({ projectId: projectId ?? '' });
   const [updateIssue] = useUpdateIssueMutation({ showNotificationOnUpdate: false });
   const { updateIssueCache } = useUpdateIssueCache();
   const { openDialog: openWarningDialog } = sprintCompleteWarningDialog.useDialogState();
@@ -128,7 +128,7 @@ export function KanbanBoard() {
     if (columnId) {
       updateIssue({
         id: activeId,
-        status: columnId,
+        status: columnId
       });
     }
   };
@@ -136,7 +136,7 @@ export function KanbanBoard() {
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
+      coordinateGetter: sortableKeyboardCoordinates
     })
   );
 
@@ -145,7 +145,7 @@ export function KanbanBoard() {
     if (hasPendingIssues) {
       openWarningDialog();
     } else {
-      completeSprint(data?.id ?? "", { onCompleted: () => navigate("../issues") });
+      completeSprint(data?.id ?? '', { onCompleted: () => navigate('../issues') });
     }
   };
 
@@ -184,7 +184,7 @@ export function KanbanBoard() {
       >
         <div className="flex gap-4 mt-6 h-full">
           {COLUMNS.map((column) => (
-            <ColumnDroppable key={column.id} id={column.id} title={column.title} projectId={projectId ?? ""} />
+            <ColumnDroppable key={column.id} id={column.id} title={column.title} projectId={projectId ?? ''} />
           ))}
         </div>
       </DndContext>

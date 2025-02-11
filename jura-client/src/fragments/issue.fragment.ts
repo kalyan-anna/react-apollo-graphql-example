@@ -12,6 +12,7 @@ export const IssueFragment = gql(`
     projectId
     sprintId
     assigneeUserId
+    orderIndex
     assignee {
       ...UserFragment
     }

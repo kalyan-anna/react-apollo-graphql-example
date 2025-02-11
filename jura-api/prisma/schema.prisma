@@ -56,6 +56,7 @@ model Issue {
   description    String?
   type           String
   storyPoints    Int?
+  orderIndex     Float?
   status         String
   projectId      Int
   Project        Project @relation(fields: [projectId], references: [id])

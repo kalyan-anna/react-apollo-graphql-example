@@ -1,4 +1,4 @@
-import { ID, Int, ObjectType } from '@nestjs/graphql';
+import { Float, ID, Int, ObjectType } from '@nestjs/graphql';
 import { IssueStatus, IssueType } from './enums';
 
 import { Field } from '@nestjs/graphql';
@@ -24,6 +24,9 @@ export class Issue {
 
   @Field(() => Int, { nullable: true })
   storyPoints?: number;
+
+  @Field(() => Float, { nullable: false })
+  orderIndex: number;
 
   @Field(() => String, { nullable: false })
   projectId!: string;

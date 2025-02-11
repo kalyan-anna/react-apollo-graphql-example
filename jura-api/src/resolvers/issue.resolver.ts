@@ -61,15 +61,21 @@ export class IssueResolver {
     @Args('issueUpdateInput')
     issueUpdateInput: IssueUpdateInput,
   ) {
-    const { id, sprintId, assigneeUserId, reporterUserId, ...dataToUpdate } =
-      issueUpdateInput;
+    const {
+      id,
+      sprintId,
+      assigneeUserId,
+      reporterUserId,
+      orderIndex,
+      ...dataToUpdate
+    } = issueUpdateInput;
 
+    const oldIssue = await this.issueService.issue({ id: Number(id) });
     if (assigneeUserId) {
-      const prevIssue = await this.issueService.issue({ id: Number(id) });
-      if (prevIssue.assigneeUserId !== Number(assigneeUserId)) {
+      if (oldIssue.assigneeUserId !== Number(assigneeUserId)) {
         this.notificationService.createNotification({
           data: {
-            message: `${prevIssue.issueNumber} has been assigned to you.`,
+            message: `${oldIssue.issueNumber} has been assigned to you.`,
             status: NotificationStatus.UNREAD,
             User: {
               connect: {
@@ -81,12 +87,25 @@ export class IssueResolver {
       }
     }
 
+    let newOrderIndex = orderIndex ?? oldIssue.orderIndex;
+    if (
+      sprintId === null ||
+      (sprintId && oldIssue.sprintId !== Number(sprintId))
+    ) {
+      const highestOrderIndex = await this.issueService.highestOrderIndex({
+        ...(sprintId && { sprintId: Number(sprintId) }),
+        projectId: oldIssue.projectId,
+      });
+      newOrderIndex = highestOrderIndex + 1;
+    }
+
     return this.issueService.updateIssue({
       where: {
         id: Number(id),
       },
       data: {
         ...dataToUpdate,
+        orderIndex: newOrderIndex,
         ...(sprintId && { sprintId: Number(sprintId) }),
         ...(assigneeUserId && { assigneeUserId: Number(assigneeUserId) }),
         ...(reporterUserId && { reporterUserId: Number(reporterUserId) }),
@@ -129,10 +148,16 @@ export class IssueResolver {
       });
     }
 
+    const highestOrderIndex = await this.issueService.highestOrderIndex({
+      projectId: Number(projectId),
+      sprintId: Number(sprintId),
+    });
+
     return this.issueService.createIssue({
       data: {
         ...dataToCreate,
         issueNumber,
+        orderIndex: highestOrderIndex + 1,
         Project: {
           connect: {
             id: Number(projectId),

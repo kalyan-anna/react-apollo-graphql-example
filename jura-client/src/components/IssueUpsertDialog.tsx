@@ -1,73 +1,62 @@
-import * as yup from "yup";
+import * as yup from 'yup';
 
-import { Issue, IssueStatus, IssueType } from "@generated/graphql";
-import {
-  Button,
-  Dialog,
-  DialogBody,
-  DialogHeader,
-  IconButton,
-  Input,
-  Option,
-  Select,
-  Textarea,
-  Typography,
-} from "@material-tailwind/react";
-import { useCreateIssueMutation, useDeleteIssueMutation, useUpdateIssueMutation } from "../state/issue";
-import { useUnCompletedSprintsQuery } from "../state/sprint";
+import { Issue, IssueStatus, IssueType } from '@generated/graphql';
+import { Button, Dialog, DialogBody, DialogHeader, IconButton, Input, Option, Select, Textarea, Typography } from '@material-tailwind/react';
+import { useCreateIssueMutation, useDeleteIssueMutation, useUpdateIssueMutation } from '../state/issue';
+import { useUnCompletedSprintsQuery } from '../state/sprint';
 
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import { useParams } from "react-router";
-import { issueDialog } from "../state/ui-dialog";
-import { useUsersQuery } from "../state/user";
-import { ISSUE_TYPE_COLOR } from "../utils/constants";
-import { Divider } from "./design-system/Divider";
-import { UserSelect } from "./design-system/UserSelect";
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router';
+import { issueDialog } from '../state/ui-dialog';
+import { useUsersQuery } from '../state/user';
+import { ISSUE_TYPE_COLOR } from '../utils/constants';
+import { Divider } from './design-system/Divider';
+import { UserSelect } from './design-system/UserSelect';
 
 const IssueTypeLabel = {
-  [IssueType.Bug]: "Bug",
-  [IssueType.Story]: "Story",
+  [IssueType.Bug]: 'Bug',
+  [IssueType.Story]: 'Story'
 };
 
 const IssueStatusLabel = {
-  [IssueStatus.ToDo]: "To Do",
-  [IssueStatus.InProgress]: "In Progress",
-  [IssueStatus.Review]: "Review",
-  [IssueStatus.Done]: "Done",
+  [IssueStatus.ToDo]: 'To Do',
+  [IssueStatus.InProgress]: 'In Progress',
+  [IssueStatus.Review]: 'Review',
+  [IssueStatus.Done]: 'Done'
 };
 
 const schema = yup.object({
-  summary: yup.string().required("Summary is required"),
+  summary: yup.string().required('Summary is required'),
   description: yup.string().nullable(),
-  reporterUserId: yup.string().required("Report cannot be unassigned"),
+  reporterUserId: yup.string().required('Report cannot be unassigned'),
   assigneeUserId: yup.string().nullable(),
   sprintId: yup.string().nullable(),
   storyPoints: yup
     .number()
     .nullable()
-    .transform((value, originalValue) => (String(originalValue).trim() === "" ? null : value)),
+    .transform((value, originalValue) => (String(originalValue).trim() === '' ? null : value)),
   type: yup
     .mixed()
-    .oneOf(Object.values(IssueType), `Type must be one of: ${Object.values(IssueType).join(", ")}`)
-    .required("Type is required")
+    .oneOf(Object.values(IssueType), `Type must be one of: ${Object.values(IssueType).join(', ')}`)
+    .required('Type is required')
     .default(IssueType.Story),
   status: yup
     .mixed()
-    .oneOf(Object.values(IssueStatus), `Status must be one of: ${Object.values(IssueStatus).join(", ")}`)
-    .required("Status is required")
-    .default(IssueStatus.ToDo),
+    .oneOf(Object.values(IssueStatus), `Status must be one of: ${Object.values(IssueStatus).join(', ')}`)
+    .required('Status is required')
+    .default(IssueStatus.ToDo)
 });
 
 type FormValues = yup.InferType<typeof schema>;
 
 const UpsertIssueForm = ({ issue }: { issue?: Issue }) => {
   const { closeDialog } = issueDialog.useDialogState();
-  const { projectId = "" } = useParams();
+  const { projectId = '' } = useParams();
   const { data: usersData, loading: usersLoading } = useUsersQuery();
   const { data: sprintsData, loading: sprintLoading } = useUnCompletedSprintsQuery({
-    projectId: projectId ?? "",
+    projectId: projectId ?? ''
   });
   const [updateIssue, { loading: loadingUpdate }] = useUpdateIssueMutation();
   const [deleteIssue, { loading: loadingDelete }] = useDeleteIssueMutation();
@@ -81,7 +70,7 @@ const UpsertIssueForm = ({ issue }: { issue?: Issue }) => {
     formState: { errors },
     setValue,
     watch,
-    getValues,
+    getValues
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -92,16 +81,16 @@ const UpsertIssueForm = ({ issue }: { issue?: Issue }) => {
       status: issue?.status ?? IssueStatus.ToDo,
       storyPoints: issue?.storyPoints,
       summary: issue?.summary,
-      type: issue?.type ?? IssueType.Story,
+      type: issue?.type ?? IssueType.Story
     },
-    disabled: loading,
+    disabled: loading
   });
 
-  const selectedReporterId = watch("reporterUserId");
-  const selectedAssigneeUserId = watch("assigneeUserId");
-  const selectedSprintId = watch("sprintId");
-  const selectedType = watch("type");
-  const selectedStatus = watch("status");
+  const selectedReporterId = watch('reporterUserId');
+  const selectedAssigneeUserId = watch('assigneeUserId');
+  const selectedSprintId = watch('sprintId');
+  const selectedType = watch('type');
+  const selectedStatus = watch('status');
 
   const onSubmit = (data: FormValues) => {
     if (issue?.id) {
@@ -116,7 +105,7 @@ const UpsertIssueForm = ({ issue }: { issue?: Issue }) => {
       ...data,
       projectId,
       status: data.status as IssueStatus,
-      type: data.type as IssueType,
+      type: data.type as IssueType
     });
   };
 
@@ -126,9 +115,9 @@ const UpsertIssueForm = ({ issue }: { issue?: Issue }) => {
         ...data,
         status: data.status as IssueStatus,
         type: data.type as IssueType,
-        id: issue?.id ?? "",
+        id: issue?.id ?? '',
         assigneeUserId: data.assigneeUserId || null,
-        sprintId: data.sprintId || null,
+        sprintId: data.sprintId || null
       },
       issue
     );
@@ -148,26 +137,15 @@ const UpsertIssueForm = ({ issue }: { issue?: Issue }) => {
           </div>
         )}
         <Typography variant="h4" color="blue-gray">
-          {issue?.id ? "Update" : "Create"} Issue
+          {issue?.id ? 'Update' : 'Create'} Issue
         </Typography>
-        <IconButton
-          size="sm"
-          variant="text"
-          className="!absolute right-3.5 top-3.5"
-          onClick={closeDialog}
-          disabled={loading}
-        >
+        <IconButton size="sm" variant="text" className="!absolute right-3.5 top-3.5" onClick={closeDialog} disabled={loading}>
           <XMarkIcon className="h-4 w-4 stroke-2" />
         </IconButton>
       </DialogHeader>
       <DialogBody className="space-y-8 pb-6">
         <div>
-          <Input
-            label="Summary"
-            error={!!errors.summary}
-            {...register("summary")}
-            containerProps={{ className: "min-w-full" }}
-          />
+          <Input label="Summary" error={!!errors.summary} {...register('summary')} containerProps={{ className: 'min-w-full' }} />
           {errors?.summary && <p className="text-sm text-red-500 mt-2">{errors.summary?.message}</p>}
         </div>
 
@@ -176,8 +154,8 @@ const UpsertIssueForm = ({ issue }: { issue?: Issue }) => {
             <UserSelect
               label="Reporter"
               users={usersData?.users ?? []}
-              value={selectedReporterId ?? ""}
-              onChange={(value) => setValue("reporterUserId", value ?? "")}
+              value={selectedReporterId ?? ''}
+              onChange={value => setValue('reporterUserId', value ?? '')}
               error={!!errors.reporterUserId}
               disabled={loading}
             />
@@ -195,8 +173,8 @@ const UpsertIssueForm = ({ issue }: { issue?: Issue }) => {
             <UserSelect
               label="Assignee"
               users={usersData?.users ?? []}
-              value={selectedAssigneeUserId ?? ""}
-              onChange={(value) => setValue("assigneeUserId", value)}
+              value={selectedAssigneeUserId ?? ''}
+              onChange={value => setValue('assigneeUserId', value)}
               error={!!errors.assigneeUserId}
               disabled={loading}
             />
@@ -214,8 +192,8 @@ const UpsertIssueForm = ({ issue }: { issue?: Issue }) => {
             rows={7}
             label="Description"
             error={!!errors.description}
-            {...register("description")}
-            containerProps={{ className: "min-w-full" }}
+            {...register('description')}
+            containerProps={{ className: 'min-w-full' }}
           />
           {errors?.description && <p className="text-sm text-red-500 mt-2">{errors.description?.message}</p>}
         </div>
@@ -224,17 +202,17 @@ const UpsertIssueForm = ({ issue }: { issue?: Issue }) => {
           {!sprintLoading && (
             <Select
               label="Sprint"
-              value={selectedSprintId ?? ""}
-              onChange={(value) => setValue("sprintId", value)}
+              value={selectedSprintId ?? ''}
+              onChange={value => setValue('sprintId', value)}
               error={!!errors.sprintId}
-              selected={() => sprintsData?.find((s) => s.id === selectedSprintId)?.name}
+              selected={() => sprintsData?.find(s => s.id === selectedSprintId)?.name}
               disabled={loading}
-              containerProps={{ className: "min-w-full" }}
+              containerProps={{ className: 'min-w-full' }}
             >
               <Option value={undefined} className="h-8">
-                {" "}
+                {' '}
               </Option>
-              {sprintsData?.map((sprint) => (
+              {sprintsData?.map(sprint => (
                 <Option key={sprint.id} value={sprint.id}>
                   {sprint.name}
                 </Option>
@@ -252,23 +230,18 @@ const UpsertIssueForm = ({ issue }: { issue?: Issue }) => {
 
         <div className="flex gap-2">
           <div>
-            <Input
-              label="Story points"
-              error={!!errors.storyPoints}
-              {...register("storyPoints")}
-              containerProps={{ className: "min-w-full" }}
-            />
+            <Input label="Story points" error={!!errors.storyPoints} {...register('storyPoints')} containerProps={{ className: 'min-w-full' }} />
             {errors?.storyPoints && <p className="text-sm text-red-500 mt-2">{errors.storyPoints?.message}</p>}
           </div>
           <div>
             <Select
               label="Type"
               value={selectedType as string}
-              onChange={(value) => setValue("type", value as IssueType)}
+              onChange={value => setValue('type', value as IssueType)}
               error={!!errors.type}
               selected={() => IssueTypeLabel[selectedType as IssueType]}
               disabled={loading}
-              containerProps={{ className: "min-w-20 md:min-w-40" }}
+              containerProps={{ className: 'min-w-20 md:min-w-40' }}
             >
               <Option value={IssueType.Story}>{IssueTypeLabel[IssueType.Story]}</Option>
               <Option value={IssueType.Bug}>{IssueTypeLabel[IssueType.Bug]}</Option>
@@ -278,11 +251,11 @@ const UpsertIssueForm = ({ issue }: { issue?: Issue }) => {
             <Select
               label="Status"
               value={selectedStatus as string}
-              onChange={(value) => setValue("status", value as IssueStatus)}
+              onChange={value => setValue('status', value as IssueStatus)}
               error={!!errors.type}
               selected={() => IssueStatusLabel[selectedStatus as IssueStatus]}
               disabled={loading}
-              containerProps={{ className: "min-w-20 md:min-w-40" }}
+              containerProps={{ className: 'min-w-20 md:min-w-40' }}
             >
               {Object.entries(IssueStatusLabel).map(([key, label]) => (
                 <Option value={key} key={key}>
@@ -298,7 +271,7 @@ const UpsertIssueForm = ({ issue }: { issue?: Issue }) => {
             Cancel
           </Button>
           <Button type="submit" loading={loadingUpdate || loadingCreate} disabled={loading}>
-            {issue?.id ? "Save  " : "Create"}
+            {issue?.id ? 'Save  ' : 'Create'}
           </Button>
         </div>
 

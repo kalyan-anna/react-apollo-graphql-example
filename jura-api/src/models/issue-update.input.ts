@@ -1,4 +1,4 @@
-import { Field, ID, InputType, Int } from '@nestjs/graphql';
+import { Field, Float, ID, InputType, Int } from '@nestjs/graphql';
 import { IssueStatus, IssueType } from './enums';
 
 @InputType()
@@ -11,6 +11,9 @@ export class IssueUpdateInput {
 
   @Field(() => String, { nullable: true })
   description?: string;
+
+  @Field(() => Float, { nullable: true })
+  orderIndex?: number;
 
   @Field(() => String, { nullable: true })
   assigneeUserId?: string;

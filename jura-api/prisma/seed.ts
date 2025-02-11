@@ -24,11 +24,30 @@ async function createSprints() {
   });
 }
 
-async function createIssues() {
-  await prisma.issue.createMany({
-    data: issuesData,
+async function highestOrderIndex(projectId: number, sprintId?: number) {
+  const data = await prisma.issue.findFirst({
+    where: {
+      projectId,
+      sprintId,
+    },
+    orderBy: { orderIndex: 'desc' },
+    select: { orderIndex: true },
   });
-  issuesData.forEach(async (issue) => {
+  return data?.orderIndex ?? 0;
+}
+
+async function createIssues() {
+  for (const issue of issuesData) {
+    const highestindex = await highestOrderIndex(
+      issue.projectId,
+      issue.sprintId,
+    );
+    await prisma.issue.create({
+      data: {
+        ...issue,
+        orderIndex: highestindex + 1,
+      },
+    });
     if (issue.assigneeUserId) {
       await prisma.notification.create({
         data: {
@@ -38,7 +57,7 @@ async function createIssues() {
         },
       });
     }
-  });
+  }
 }
 
 createUsers().then(async () => {

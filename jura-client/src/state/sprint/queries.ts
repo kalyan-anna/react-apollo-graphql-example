@@ -71,7 +71,13 @@ export const useActiveSprintQuery = ({ projectId }: { projectId: string }) => {
   }, [result]);
 };
 
-export const useActiveSprintIssuesQuery = ({ projectId, status }: { projectId: string; status: IssueStatus }) => {
+export const useActiveSprintIssuesByStatusQuery = ({
+  projectId,
+  status,
+}: {
+  projectId: string;
+  status: IssueStatus;
+}) => {
   const result = useActiveSprintQuery({ projectId });
 
   return useMemo(() => {

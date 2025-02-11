@@ -4,10 +4,9 @@ import { Link, useParams } from "react-router";
 import { SprintContainer } from "../components/SprintContainer";
 import { SprintContainerSkeleton } from "../components/SprintContainerSkeleton";
 import { useBacklogIssuesQuery } from "../state/issue";
+import { useProjectQuery } from "../state/project";
 import { useCompletedSprintsQuery, useUnCompletedSprintsQuery } from "../state/sprint";
 import { issueDialog, sprintDialog } from "../state/ui-dialog";
-import { useProjectQuery } from "../state/project";
-import { Toast } from "../components/design-system/Toast";
 
 export const IssuesPage = () => {
   const { projectId = "" } = useParams();

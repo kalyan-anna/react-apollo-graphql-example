@@ -14,7 +14,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 const documents = {
-    "\n fragment IssueFragment on Issue {\n    id\n    issueNumber\n    summary\n    description\n    type\n    status\n    storyPoints\n    projectId\n    sprintId\n    assigneeUserId\n    assignee {\n      ...UserFragment\n    }\n    reporterUserId  \n    reporter {\n      ...UserFragment\n    }  \n  }\n": types.IssueFragmentFragmentDoc,
+    "\n fragment IssueFragment on Issue {\n    id\n    issueNumber\n    summary\n    description\n    type\n    status\n    storyPoints\n    projectId\n    sprintId\n    assigneeUserId\n    orderIndex\n    assignee {\n      ...UserFragment\n    }\n    reporterUserId  \n    reporter {\n      ...UserFragment\n    }  \n  }\n": types.IssueFragmentFragmentDoc,
     "\n fragment NotificationFragment on Notification {\n    id\n    message\n    status\n  }\n": types.NotificationFragmentFragmentDoc,
     "\n fragment ProjectFragment on Project {\n    id\n    name\n    ownerId\n    subTitle\n  }\n": types.ProjectFragmentFragmentDoc,
     "\n fragment SprintFragment on Sprint {\n    id\n    name\n    goal\n    status\n    startDate\n    endDate\n    projectId\n  }\n": types.SprintFragmentFragmentDoc,
@@ -52,7 +52,7 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n fragment IssueFragment on Issue {\n    id\n    issueNumber\n    summary\n    description\n    type\n    status\n    storyPoints\n    projectId\n    sprintId\n    assigneeUserId\n    assignee {\n      ...UserFragment\n    }\n    reporterUserId  \n    reporter {\n      ...UserFragment\n    }  \n  }\n"): (typeof documents)["\n fragment IssueFragment on Issue {\n    id\n    issueNumber\n    summary\n    description\n    type\n    status\n    storyPoints\n    projectId\n    sprintId\n    assigneeUserId\n    assignee {\n      ...UserFragment\n    }\n    reporterUserId  \n    reporter {\n      ...UserFragment\n    }  \n  }\n"];
+export function gql(source: "\n fragment IssueFragment on Issue {\n    id\n    issueNumber\n    summary\n    description\n    type\n    status\n    storyPoints\n    projectId\n    sprintId\n    assigneeUserId\n    orderIndex\n    assignee {\n      ...UserFragment\n    }\n    reporterUserId  \n    reporter {\n      ...UserFragment\n    }  \n  }\n"): (typeof documents)["\n fragment IssueFragment on Issue {\n    id\n    issueNumber\n    summary\n    description\n    type\n    status\n    storyPoints\n    projectId\n    sprintId\n    assigneeUserId\n    orderIndex\n    assignee {\n      ...UserFragment\n    }\n    reporterUserId  \n    reporter {\n      ...UserFragment\n    }  \n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
